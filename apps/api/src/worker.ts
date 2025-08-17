@@ -1,7 +1,7 @@
 import { Queue, Worker } from 'bullmq'
 import Redis from 'ioredis'
 import { config } from './config'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from './db'
 import { storageService } from './services/storage'
 import { transcodeVideo } from './services/ffmpeg'
 

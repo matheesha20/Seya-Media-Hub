@@ -1,6 +1,6 @@
 import crypto from 'crypto'
 import bcrypt from 'bcryptjs'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 
 export function generateApiKey(): string {
   return `sk_${crypto.randomBytes(32).toString('hex')}`

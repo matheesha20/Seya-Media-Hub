@@ -1,4 +1,4 @@
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 import { config } from '../config'
 
 export type UsageKind = 'storage_write' | 'egress' | 'transform'

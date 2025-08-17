@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 
 export async function healthRoutes(fastify: FastifyInstance) {
   fastify.get('/healthz', async (request, reply) => {

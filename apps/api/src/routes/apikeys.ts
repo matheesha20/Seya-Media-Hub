@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 import { createApiKey } from '../services/auth'
 
 const createApiKeySchema = z.object({

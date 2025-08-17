@@ -1,5 +1,5 @@
 import { FastifyInstance } from 'fastify'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 import { storageService } from '../services/storage'
 import { verifyTransformURL, TransformParams } from '../services/signer'
 import { transformImage } from '../services/sharp'

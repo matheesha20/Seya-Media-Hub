@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 import { storageService } from '../services/storage'
 import { validateApiKey } from '../services/auth'
 import { signTransformURL } from '../services/signer'

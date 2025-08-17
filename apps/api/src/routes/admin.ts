@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 import { getAccountUsage } from '../services/usage'
 
 // JWT authentication hook

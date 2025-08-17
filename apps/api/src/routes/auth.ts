@@ -1,7 +1,7 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import bcrypt from 'bcryptjs'
-import { prisma } from '@seya-media-hub/db'
+import { prisma } from '../db'
 import { config } from '../config'
 import { generateApiKey } from '../services/auth'
 

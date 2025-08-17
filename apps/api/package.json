@@ -15,7 +15,6 @@
     "@fastify/multipart": "^8.0.0",
     "@fastify/rate-limit": "^9.1.0",
     "@prisma/client": "^5.7.1",
-    "@seya-media-hub/db": "workspace:*",
     "aws-sdk": "^2.1531.0",
     "bcryptjs": "^2.4.3",
     "bullmq": "^5.0.4",

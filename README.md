@@ -23,7 +23,7 @@ Seya Media Hub is a lightweight multi-tenant media hosting and transformation se
 6. **Sign up and create a tenant** using the dashboard or the `/v1/auth/signup` API, then create upload tokens and assets as needed.
 7. **Configure Cloudflare** for CDN caching as described below.
 8. **Configure Hetzner Object Storage** and connect the bucket to Cloudflare as the origin.
-=======
+
 ## Getting Started
 
 1. Copy `.env.example` to `.env` and fill in your credentials.
@@ -35,6 +35,7 @@ docker compose up --build
 ```
 
 The API will be available on port `8080` and the dashboard on `3000` by default.
+
 
 ## Cloudflare Setup
 

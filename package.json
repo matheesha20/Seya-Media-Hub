@@ -18,7 +18,8 @@
     "stop": "docker-compose down",
     "db:migrate": "cd packages/db && npm run migrate",
     "db:generate": "cd packages/db && npm run generate",
-    "db:seed": "cd packages/db && npm run seed"
+    "db:seed": "cd packages/db && npm run seed",
+    "test:bunnycdn": "node scripts/test-bunnycdn.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

@@ -1,0 +1,153 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                        String   @id @default(cuid())
+  name                      String
+  plan                      String   @default("starter")
+  cdnHostname               String   @map("cdn_hostname")
+  transformSigningSecret    String   @map("transform_signing_secret")
+  monthlyLimitStorageMb     Int      @default(5120) @map("monthly_limit_storage_mb")
+  monthlyLimitEgressMb      Int      @default(51200) @map("monthly_limit_egress_mb")
+  monthlyLimitTransformCount Int     @default(200000) @map("monthly_limit_transform_count")
+  createdAt                 DateTime @default(now()) @map("created_at")
+
+  users       User[]
+  apiKeys     ApiKey[]
+  assets      Asset[]
+  jobs        Job[]
+  usageEvents UsageEvent[]
+  webhooks    Webhook[]
+
+  @@map("accounts")
+}
+
+model User {
+  id          String   @id @default(cuid())
+  accountId   String   @map("account_id")
+  email       String   @unique
+  passwordHash String  @map("password_hash")
+  role        String   @default("owner")
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("users")
+}
+
+model ApiKey {
+  id        String   @id @default(cuid())
+  accountId String   @map("account_id")
+  name      String
+  keyHash   String   @map("key_hash")
+  createdAt DateTime @default(now()) @map("created_at")
+  revoked   Boolean  @default(false)
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+model Asset {
+  id           String   @id @default(cuid())
+  accountId    String   @map("account_id")
+  kind         String   // image | video | other
+  originalUrl  String   @map("original_url")
+  storageKey   String   @map("storage_key")
+  mime         String
+  bytes        BigInt
+  width        Int?
+  height       Int?
+  durationSec  Decimal? @map("duration_sec") @db.Decimal(10, 2)
+  status       String   @default("ready") // for videos: queued/processing/ready/failed
+  metadata     Json     @default("{}")
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  account  Account    @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  variants Variant[]
+  jobs     Job[]
+
+  @@map("assets")
+}
+
+model Variant {
+  id         String   @id @default(cuid())
+  assetId    String   @map("asset_id")
+  params     Json
+  storageKey String?  @map("storage_key")
+  mime       String?
+  bytes      BigInt?
+  width      Int?
+  height     Int?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  asset Asset @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@unique([assetId, params])
+  @@map("variants")
+}
+
+model Job {
+  id        String   @id @default(cuid())
+  accountId String   @map("account_id")
+  assetId   String?  @map("asset_id")
+  type      String   // transcode|thumbnail|prerender
+  status    String   @default("queued")
+  payload   Json
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  asset   Asset?  @relation(fields: [assetId], references: [id], onDelete: Cascade)
+
+  @@map("jobs")
+}
+
+model UsageEvent {
+  id        BigInt   @id @default(autoincrement())
+  accountId String   @map("account_id")
+  kind      String   // storage_write|egress|transform
+  bytes     BigInt   @default(0)
+  count     Int      @default(1)
+  at        DateTime @default(now())
+
+  account Account @relation(fields: [accountId], references: [id], onDelete: Cascade)
+
+  @@map("usage_events")
+}
+
+model Webhook {
+  id        String   @id @default(cuid())
+  accountId String   @map("account_id")
+  url       String
+  secret    String
+  createdAt DateTime @default(now()) @map("created_at")
+
+  account           Account            @relation(fields: [accountId], references: [id], onDelete: Cascade)
+  webhookDeliveries WebhookDelivery[]
+
+  @@map("webhooks")
+}
+
+model WebhookDelivery {
+  id         String   @id @default(cuid())
+  webhookId  String   @map("webhook_id")
+  event      String
+  payload    Json
+  status     Int?
+  attempts   Int      @default(0)
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  webhook Webhook @relation(fields: [webhookId], references: [id], onDelete: Cascade)
+
+  @@map("webhook_deliveries")
+}

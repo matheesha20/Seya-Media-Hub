@@ -1,0 +1,30 @@
+{
+  "name": "seya-media-hub",
+  "version": "1.0.0",
+  "description": "Fast, low-cost image & video optimization + CDN for SMEs and agencies in South Asia",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "concurrently \"npm run dev:api\" \"npm run dev:dashboard\"",
+    "dev:api": "cd apps/api && npm run dev",
+    "dev:dashboard": "cd apps/dashboard && npm run dev",
+    "build": "npm run build:api && npm run build:dashboard",
+    "build:api": "cd apps/api && npm run build",
+    "build:dashboard": "cd apps/dashboard && npm run build",
+    "start": "docker-compose up -d",
+    "stop": "docker-compose down",
+    "db:migrate": "cd packages/db && npm run migrate",
+    "db:generate": "cd packages/db && npm run generate",
+    "db:seed": "cd packages/db && npm run seed"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

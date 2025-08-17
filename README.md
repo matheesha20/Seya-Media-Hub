@@ -2,6 +2,7 @@
 
 Seya Media Hub is a lightweight multi-tenant media hosting and transformation service that uses Hetzner Object Storage for originals and variants and Cloudflare for global CDN delivery. This repository contains a minimal MVP with an API server, background worker and Next.js dashboard.
 
+
 ## A-Z Setup Guide
 
 1. **Clone the repository**
@@ -22,6 +23,18 @@ Seya Media Hub is a lightweight multi-tenant media hosting and transformation se
 6. **Sign up and create a tenant** using the dashboard or the `/v1/auth/signup` API, then create upload tokens and assets as needed.
 7. **Configure Cloudflare** for CDN caching as described below.
 8. **Configure Hetzner Object Storage** and connect the bucket to Cloudflare as the origin.
+=======
+## Getting Started
+
+1. Copy `.env.example` to `.env` and fill in your credentials.
+2. Install dependencies using npm (workspaces are used).
+3. Start services with Docker Compose:
+
+```bash
+docker compose up --build
+```
+
+The API will be available on port `8080` and the dashboard on `3000` by default.
 
 ## Cloudflare Setup
 

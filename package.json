@@ -1,0 +1,20 @@
+{
+  "name": "seya-media-hub",
+  "version": "1.0.0",
+  "description": "A comprehensive media management and streaming platform",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\"",
+    "server:dev": "cd server && npm run dev",
+    "client:dev": "cd client && npm start",
+    "build": "cd client && npm run build",
+    "start": "cd server && npm start",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install"
+  },
+  "keywords": ["media", "streaming", "platform", "react", "nodejs", "mongodb"],
+  "author": "Seya Media Hub Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "seya-media-hub",
+  "private": true,
+  "version": "0.1.0",
+  "workspaces": [
+    "apps/api",
+    "apps/web",
+    "apps/worker",
+    "packages/shared",
+    "packages/storage",
+    "packages/cdn"
+  ],
+  "scripts": {
+    "build": "npm run build -ws",
+    "dev": "npm run dev -w apps/api"
+  }
+}

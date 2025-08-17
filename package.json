@@ -11,8 +11,13 @@
     "packages/cdn"
   ],
   "scripts": {
+
     "build": "npm run build -w packages/shared -w packages/storage -w packages/cdn -w apps/api -w apps/web -w apps/worker",
     "dev": "npm run dev -w apps/api",
     "test": "echo 'No tests defined'"
+
+    "build": "npm run build -ws",
+    "dev": "npm run dev -w apps/api"
+
   }
 }

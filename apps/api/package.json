@@ -10,7 +10,11 @@
   "dependencies": {
     "fastify": "^4.26.2",
     "@fastify/jwt": "^7.1.0",
+
     "@fastify/cors": "^8.5.0",
+
+    "@fastify/cors": "^8.5.1",
+
     "pino": "^8.15.0",
     "dotenv": "^16.4.5",
     "argon2": "^0.31.2",
